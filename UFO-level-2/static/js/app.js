@@ -68,19 +68,42 @@ function handleClick(){
     d3.event.preventDefault();
     // Select HTML Input Element & Get the Value Property of that Input Element
     var date = d3.select("#datetime").property("value");
+    var city = d3.select("#city").property("value");
+    var state = d3.select("#state").property("value");
+    var country = d3.select("#country").property("value");
+    var shape = d3.select("#shape").property("value");
     var filterData = tableData;
 
-    // Check if a Date was Entered & Filter Data Using that Date;
-    if(date) {
+    // Check if a Date was Entered & Filter Data Using that Date
+    if (date) {
         // Apply Filter to the Table Data to Only Keep Rows Where datetime Value Matches the Filter Value
         filterData = filterData.filter((row) => row.datetime === date);
-
-        
+    }
+    // Check if a City was Entered & Filter Data Using that City
+    if (city) {
+        // Apply Filter to the Table Data to Only Keep Rows Where City Value Matches the Filter Value
+        filterData = filterData.filter((row) => titleCase(row.city) === titleCase(city));        
+    }
+    // Check if a State was Entered & Filter Data Using that State
+    if (state) {
+        // Apply Filter to the Table Data to Only Keep Rows Where State Value Matches the Filter Value
+        filterData = filterData.filter((row) => row.state.toUpperCase() === state.toUpperCase());
+    }
+    // Check if a Country was Entered & Filter Data Using that Country
+    if (country) {
+        // Apply Filter to the Table Data to Only Keep Rows Where Country Value Matches the Filter Value
+        filterData = filterData.filter((row) => row.country.toUpperCase() === country.toUpperCase());
+    }
+    // Check if a Country was Entered & Filter Data Using that Country
+    if (shape) {
+        // Apply Filter to the Table Data to Only Keep Rows Where Country Value Matches the Filter Value
+        filterData = filterData.filter((row) => titleCase(row.shape) === titleCase(shape));        
     }
     // Build Table with Filtered Data
-    buildTable(filterData);
-    
+     buildTable(filterData);
 }
+
+
 // `on` Function to attach an Event to the Handler Function
 d3.selectAll("#filter-btn").on("click", handleClick);
 // Build Table with data.js 
